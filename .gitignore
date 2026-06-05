@@ -27,3 +27,6 @@ BitBucket/
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+
+# Local Maintain agent files
+.agent/
