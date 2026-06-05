@@ -1,0 +1,30 @@
+# User Feedback & Corrections
+
+---
+
+## [YYYY-MM-DD]: [Correction Title]
+
+**Context**: [What task was being done]
+
+**Agent Action**: [What agent did/planned]
+
+**User Correction**: [What user said instead]
+
+**Reason**: [Why agent was wrong - misunderstanding, wrong assumption]
+
+**Learning**: [What to do differently next time]
+
+**Applied To**: [Which routing rule/subagent/skill updated]
+
+**Status**: [Fixed / Pending / Cannot Fix]
+
+---
+
+## Archive
+
+[Move resolved corrections older than 3 months here]
+
+---
+
+**Created**: [DATE]
+**Last Updated**: [DATE]

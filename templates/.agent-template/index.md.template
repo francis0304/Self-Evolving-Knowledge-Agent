@@ -1,0 +1,560 @@
+# Agent System Index - Routing & Delegation
+
+## Repository Context
+
+**Domain**: [YOUR DOMAIN - e.g., "SQL Migration", "API Development", "Data Pipelines"]
+**Primary Language**: [e.g., Python, SQL, TypeScript]
+**Key Technologies**: [e.g., Redshift, Airflow, React]
+
+**Purpose**: This file defines routing logic for the main orchestrator agent. It determines when to delegate tasks to specialized subagents vs handling them directly.
+
+---
+
+## Subagent Directory
+
+List all available subagents with their specializations:
+
+| Subagent | Expertise | Use When |
+|----------|-----------|----------|
+| **@worker-1** | [Domain expertise] | [Trigger conditions] |
+| **@worker-2** | [Domain expertise] | [Trigger conditions] |
+| **@keeper** | Documentation & wiki | [Trigger conditions] |
+| **@researcher** | Pre-flight analysis | High complexity (>5 files) |
+
+**Example** (from redshift-reporting):
+| Subagent | Expertise | Use When |
+|----------|-----------|----------|
+| **@sql-worker** | MSSQL → Redshift conversion | User mentions "convert", "migrate", "port" |
+| **@validator** | Test execution, row comparison | User mentions "validate", "test", "verify" |
+| **@fixer** | Debugging, diff analysis | User mentions "fix", "debug", "why is X failing" |
+| **@wiki-keeper** | Wiki updates, cross-links | After task completion, "update docs" |
+| **@researcher** | Pre-flight checks, pattern mining | God node detected (>15 edges in graph) |
+
+---
+
+## Routing Rules
+
+### High-Level Decision Tree
+
+```
+User Request
+  ├─ Simple query? (<2 files)
+  │   └─> Handle directly (no delegation)
+  │
+  ├─ Workflow task? (matches skill pattern)
+  │   └─> Load skill → skill delegates to subagents
+  │
+  ├─ Complex analysis? (>5 files, god node)
+  │   └─> Delegate to @researcher first
+  │       └─> Researcher returns plan
+  │           └─> Follow plan (may delegate to others)
+  │
+  └─ Specialized task? (matches expertise area)
+      └─> Delegate directly to specialist
+```
+
+---
+
+## Rule Categories
+
+### 1. Direct Handling (No Delegation)
+
+**When**: Task is trivial, requires <2 files, no specialized knowledge
+
+**Triggers**:
+- "What is X?" (simple lookup)
+- "Show me Y" (single file read)
+- "List Z" (directory scan)
+
+**Examples**:
+- "What's in the README?"
+- "List all Python files"
+- "Show me the project structure"
+
+**Pattern**:
+```
+IF (query_type == "lookup" OR file_count < 2):
+    answer_directly()
+ELSE:
+    check_next_rule()
+```
+
+---
+
+### 2. Skill-Based Delegation
+
+**When**: Task matches a defined workflow skill
+
+**Triggers**: User mentions skill keyword or task structure matches skill pattern
+
+**Skills Available**:
+- [Skill 1] - [Description]
+- [Skill 2] - [Description]
+- [Skill 3] - [Description]
+
+**Example** (from redshift-reporting):
+```
+Skills:
+- convert-sp-block - "Convert block X of SP Y to Redshift"
+- validate-migration - "Validate SP X" or "Run tests for Y"
+- fix-validation-diff - "Fix diff in case X" or "Debug Y failure"
+- update-wiki - "Update docs after Z"
+
+Pattern:
+IF (task_matches_skill_pattern()):
+    load_skill(skill_name)
+    skill_handles_delegation()  # Skill contains subagent calls
+```
+
+---
+
+### 3. Specialist Delegation
+
+**When**: Task clearly falls into one subagent's expertise area
+
+#### Rule 3.1: Worker-1 Tasks
+
+**Expertise**: [Define narrow scope - e.g., "MSSQL → Redshift SQL conversion"]
+
+**Triggers**:
+- User says: "[keyword1]", "[keyword2]", "[keyword3]"
+- File extension: [.ext1, .ext2]
+- Path pattern: [path/pattern/*]
+
+**Context to provide**:
+- [Required context 1]
+- [Required context 2]
+- [Required context 3]
+
+**Example** (sql-worker):
+```
+Triggers: "convert", "migrate", "port", "translate"
+Files: *.sql
+Paths: reporting/store_procedures/*
+
+Context:
+- Source SQL file content
+- knowledge/wiki/conversion-patterns.md
+- .agent/memory/facts.md (schema routing rules)
+
+Delegation:
+@sql-worker:
+  You are an expert in MSSQL → Redshift conversion.
+
+  Source file: [path]
+  Content: [code]
+
+  Apply these patterns: [patterns]
+  Follow these rules: [facts]
+
+  Return: Converted code only (no test cases, no docs)
+```
+
+#### Rule 3.2: Worker-2 Tasks
+
+**Expertise**: [Define narrow scope]
+
+**Triggers**: [List]
+
+**Context to provide**: [List]
+
+---
+
+### 4. Pre-Flight Analysis (God Node Detection)
+
+**When**: Task involves high-complexity entities (god nodes from graphify)
+
+**Triggers**:
+- Entity has >15 edges in knowledge graph
+- Task involves >5 files
+- User mentions known complex component
+
+**God Nodes** (from graphify-out/GRAPH_REPORT.md):
+- [Entity 1] - [X edges]
+- [Entity 2] - [Y edges]
+- [Entity 3] - [Z edges]
+
+**Pattern**:
+```
+IF (entity in god_nodes OR file_count > 5):
+    delegate_to_researcher():
+        @researcher:
+          Analyze: [entity/task]
+          Check: Dependencies, complexity, risks
+          Return: Analysis + recommended approach
+
+    wait_for_researcher_response()
+
+    IF (researcher recommends_delegation):
+        delegate_to(researcher.recommended_subagent)
+    ELSE:
+        handle_directly()
+```
+
+**Example** (redshift-reporting):
+```
+God Nodes:
+- RPT_OrderSummary (19 edges)
+- comparator.py (14 edges)
+- schema-routing (12 edges)
+
+IF user mentions "RPT_OrderSummary":
+    @researcher: "Analyze RPT_OrderSummary block dependencies"
+
+    Researcher returns: "Block 15 depends on Block 3 temp table"
+
+    @sql-worker: "Convert block 15, context: Block 3 creates #temp_fx"
+```
+
+---
+
+## Parallel Execution Opportunities
+
+**When**: Two tasks are independent and can run simultaneously
+
+**Common Patterns**:
+
+### Pattern 1: Main Task + Documentation
+```
+Main task completes (e.g., code written, tests pass)
+  ├─> Continue with next user interaction
+  └─> [PARALLEL] @keeper: "Update docs for completed task"
+```
+
+### Pattern 2: Independent Validations
+```
+Multiple test suites to run
+  ├─> @validator instance 1: "Run unit tests"
+  ├─> @validator instance 2: "Run integration tests"
+  └─> @validator instance 3: "Run E2E tests"
+```
+
+### Pattern 3: Multi-Target Operations
+```
+Apply change to multiple modules
+  ├─> @worker instance 1: "Update module A"
+  ├─> @worker instance 2: "Update module B"
+  └─> @worker instance 3: "Update module C"
+```
+
+**Example** (redshift-reporting):
+```
+After SQL conversion:
+  ├─> User sees: "Conversion complete"
+  ├─> [PARALLEL] @validator: "Run validation case"
+  └─> [PARALLEL] @wiki-keeper: "Update wiki with conversion notes"
+
+Saves: 30-45 seconds per workflow
+```
+
+---
+
+## Context Management
+
+### What to Include in Delegation
+
+**Always provide**:
+1. Task objective (what to achieve)
+2. Relevant file paths
+3. Key constraints from memory/facts.md
+4. Expected output format
+
+**Conditionally provide**:
+- Full file content (if <500 lines)
+- Relevant excerpts (if >500 lines)
+- Related wiki pages (if expertise needed)
+- Error logs (if debugging)
+- Graph topology (if god node involved)
+
+**Never provide**:
+- Entire codebase dump
+- Unrelated files
+- Raw logs without filtering
+- Duplicate information
+
+### Example Context Block
+
+```
+@subagent-name:
+  ## Objective
+  [What to accomplish - 1-2 sentences]
+
+  ## Files
+  - [path1] - [purpose]
+  - [path2] - [purpose]
+
+  ## Context
+  [Key excerpts, constraints, patterns]
+
+  ## Constraints
+  - [Critical rule 1 from facts.md]
+  - [Critical rule 2 from facts.md]
+
+  ## Expected Output
+  [Format, completeness requirements]
+```
+
+---
+
+## Error Handling
+
+### Subagent Failure
+
+**Pattern**:
+```
+IF (subagent_fails):
+    1. Isolate failure (doesn't pollute main session)
+    2. Log to .agent/learning/lessons.md
+    3. Retry with enriched context (1-2 attempts max)
+    4. If still failing:
+        - Delegate to @fixer (if debugging task)
+        - Or escalate to user with clear error
+```
+
+**Example**:
+```
+@sql-worker fails: "Cannot parse line 342"
+  └─> Retry: Provide full context window around line 342
+  └─> Still fails: @fixer "Debug parsing failure at line 342"
+  └─> Still fails: User prompt "Manual review needed: [error]"
+```
+
+### Routing Ambiguity
+
+**Pattern**:
+```
+IF (multiple_subagents_match):
+    1. Check skill first (skills have precedence)
+    2. If no skill, ask user to clarify
+    3. Don't guess - wrong delegation wastes time
+```
+
+**Example**:
+```
+User: "Check the conversion"
+  Ambiguous:
+    - @validator (run test cases)
+    - @sql-worker (review SQL code)
+
+  Response: "Do you want to:
+    1. Run validation tests (@validator)
+    2. Review SQL code quality (@sql-worker)"
+```
+
+---
+
+## Memory Integration
+
+### Reading Memory
+
+**Before routing**:
+1. Load `.agent/memory/facts.md` - Get project conventions
+2. Check `.agent/memory/working.md` - Understand current state
+3. Scan `.agent/learning/lessons.md` - Avoid past mistakes
+
+**Pattern**:
+```
+task_arrives()
+  ├─> facts = read(.agent/memory/facts.md)
+  ├─> working = read(.agent/memory/working.md)
+  ├─> lessons = read(.agent/learning/lessons.md)
+  └─> route_with_context(task, facts, working, lessons)
+```
+
+### Updating Memory
+
+**After task completion** (delegate to @keeper or handle directly):
+
+Update `.agent/memory/working.md`:
+```markdown
+## 2026-06-03: [Task Name]
+- Status: [In Progress / Complete / Blocked]
+- Actions: [What was done]
+- Results: [Outcomes, metrics]
+- Next: [Follow-up tasks]
+```
+
+Update `.agent/learning/lessons.md` (if new pattern discovered):
+```markdown
+## Lesson: [Title]
+**Date**: 2026-06-03
+**Context**: [What task led to this]
+**Discovery**: [What we learned]
+**Pattern**: [Reusable approach]
+```
+
+---
+
+## Example Delegation Flow
+
+### Example 1: Simple Conversion Task
+
+**User**: "Convert module X to Y"
+
+**Routing Logic**:
+```
+1. Check: Does "convert" match a skill?
+   → Yes: "convert-sp-block" skill exists
+
+2. Load skill: .agent/skills/convert-sp-block.md
+
+3. Skill delegates:
+   - @worker-1: Convert code
+   - @validator: Test conversion
+   - @keeper: Update docs (parallel)
+
+4. Main agent:
+   - Receives converted code from @worker-1
+   - Writes file
+   - Waits for @validator result
+   - (@keeper runs in background)
+   - Reports to user
+```
+
+### Example 2: Complex Analysis
+
+**User**: "Analyze god-node-entity dependencies"
+
+**Routing Logic**:
+```
+1. Check: Is "god-node-entity" a god node?
+   → Yes: 19 edges in graph
+
+2. Delegate to @researcher:
+   @researcher:
+     Analyze god-node-entity structure
+     Find dependencies, cross-refs, risks
+     Recommend approach
+
+3. Researcher returns:
+   "Entity has 19 dependencies. Affects modules A, B, C.
+    Recommend: Update A first, test, then B, then C."
+
+4. Main agent follows plan:
+   - @worker-1: Update A
+   - @validator: Test A
+   - @worker-1: Update B
+   - @validator: Test B
+   - @worker-1: Update C
+   - @validator: Test C
+   - @keeper: Update docs (parallel with last test)
+```
+
+---
+
+## Optimization Tips
+
+### 1. Fast-Path Common Cases
+
+For frequent simple tasks, skip deep analysis:
+```
+IF (task == "convert single function" AND function_size < 100):
+    @worker-1(fast_path=True)  # No researcher needed
+```
+
+### 2. Cache Topology
+
+Load graphify topology once per session:
+```
+session_start():
+    graph_topology = read(.agent/memory/graphify_topology.md)
+    cache_god_nodes(graph_topology)
+```
+
+### 3. Batch Related Tasks
+
+If user gives multiple similar tasks, batch delegate:
+```
+User: "Convert A, B, C to Y"
+  └─> @worker-1: [A, B, C] (single delegation, 3 outputs)
+```
+
+### 4. Learn from Failures
+
+After 3+ failures on same task type, update routing:
+```
+IF (task_type fails repeatedly):
+    1. Update .agent/learning/lessons.md
+    2. Add specific routing rule
+    3. Enrich subagent context template
+```
+
+---
+
+## Routing Rule Testing
+
+### Test Cases
+
+Run these scenarios to validate routing:
+
+1. **Simple lookup**: "What's in file X?" → Direct handling
+2. **Known skill**: "Convert X" → Skill delegation
+3. **Specialist task**: "Fix SQL error" → Worker delegation
+4. **God node**: "Update RPT_OrderSummary" → Researcher first
+5. **Parallel opportunity**: "Test and update docs" → Both parallel
+6. **Ambiguous request**: "Check X" → Ask clarification
+
+### Metrics to Track
+
+- **Routing accuracy**: >95% correct subagent selection
+- **Context efficiency**: <10K main, <8K subagent typical
+- **Speed improvement**: 20-40% faster with parallelization
+- **Failure isolation**: Subagent retries don't slow main session
+
+---
+
+## Integration Hooks
+
+### With Graphify
+
+```bash
+# Run before session
+/graphify .
+cp graphify-out/topology_summary.md .agent/memory/
+```
+
+### With Obsidian MCP
+
+```markdown
+# Add to subagent context
+MCP Tools Available:
+- mcp__obsidian__search_notes
+- mcp__obsidian__read_note
+- mcp__obsidian__write_note
+```
+
+---
+
+## Maintenance
+
+### Monthly Review
+
+1. Check `.agent/learning/lessons.md` - Extract patterns
+2. Review `.agent/memory/facts.md` - Update conventions
+3. Re-run `/graphify .` - Update god node list
+4. Test routing accuracy - Adjust rules if <95%
+
+### When to Refactor
+
+**Split a subagent** if:
+- Context regularly exceeds 10K
+- Handles >3 distinct task types
+- Failure rate >10%
+
+**Merge subagents** if:
+- Delegation overhead dominates
+- Tasks always sequential (never parallel)
+- Responsibilities overlap >50%
+
+---
+
+## Notes
+
+- This file is read by the main orchestrator agent at session start
+- Keep routing rules concise - complex logic goes in skills
+- Update after major repo changes (new domains, tech stack shifts)
+- Use comments to explain non-obvious routing decisions
+
+**Version**: 1.0
+**Last Updated**: [DATE]
+**Next Review**: [DATE + 1 month]

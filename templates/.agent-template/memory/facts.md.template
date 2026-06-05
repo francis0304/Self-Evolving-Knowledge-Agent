@@ -1,0 +1,138 @@
+# Project Facts
+
+## Repository Information
+**Name**: [Repository name]
+**Purpose**: [One-line description]
+**Tech Stack**: [Languages, frameworks, tools]
+**Version**: [Current version]
+**Repository URL**: [Link]
+
+---
+
+## Code Conventions
+
+### Naming
+- [Convention 1 - e.g., "camelCase for variables"]
+- [Convention 2 - e.g., "PascalCase for classes"]
+- [Convention 3 - e.g., "UPPER_SNAKE for constants"]
+- [Convention 4 - e.g., "Prefix private methods with _"]
+
+### Structure
+- [Convention 1 - e.g., "One class per file"]
+- [Convention 2 - e.g., "Tests in __tests__ directory"]
+- [Convention 3 - e.g., "Utils in src/utils/"]
+- [Convention 4 - e.g., "Max file size: 500 lines"]
+
+### Style
+- [Convention 1 - e.g., "2-space indentation"]
+- [Convention 2 - e.g., "Max 80 chars per line"]
+- [Convention 3 - e.g., "JSDoc comments required for public APIs"]
+- [Convention 4 - e.g., "Use single quotes for strings"]
+
+---
+
+## Critical Rules
+
+### Always
+- [Rule 1 - e.g., "Always validate user inputs"]
+- [Rule 2 - e.g., "Always use parameterized queries"]
+- [Rule 3 - e.g., "Always catch async errors"]
+- [Rule 4 - e.g., "Always write tests for new features"]
+
+### Never
+- [Rule 1 - e.g., "Never commit secrets"]
+- [Rule 2 - e.g., "Never use eval()"]
+- [Rule 3 - e.g., "Never ignore TypeScript errors"]
+- [Rule 4 - e.g., "Never deploy without tests passing"]
+
+---
+
+## File Locations
+
+**Source code**: [e.g., src/]
+**Tests**: [e.g., __tests__/]
+**Configs**: [e.g., config/]
+**Documentation**: [e.g., docs/]
+**Build output**: [e.g., dist/]
+**Scripts**: [e.g., scripts/]
+
+---
+
+## Dependencies
+
+### Required
+- [Dependency 1 - e.g., "Node.js >= 18"]
+- [Dependency 2 - e.g., "PostgreSQL 14"]
+- [Dependency 3 - e.g., "Python 3.9+"]
+
+### Optional
+- [Dependency 1 - e.g., "Redis (for caching)"]
+- [Dependency 2 - e.g., "Docker (for local dev)"]
+
+---
+
+## Domain-Specific Facts
+
+[Add sections specific to your domain - examples below]
+
+### Example: API Development
+**Base URL**: [e.g., https://api.example.com/v1]
+**Auth**: [e.g., "Bearer tokens, JWT"]
+**Rate Limits**: [e.g., "100 req/min per API key"]
+
+### Example: Database
+**Primary DB**: [e.g., "PostgreSQL 14"]
+**Schema**: [e.g., "public for app, audit for logs"]
+**Migrations**: [e.g., "Flyway, versioned V1__*.sql"]
+
+### Example: Frontend
+**Framework**: [e.g., "React 18 with TypeScript"]
+**State**: [e.g., "Redux Toolkit"]
+**Styling**: [e.g., "Tailwind CSS"]
+
+---
+
+## Environment-Specific
+
+### Development
+- [Fact 1 - e.g., "Local DB on port 5432"]
+- [Fact 2 - e.g., "Hot reload enabled"]
+
+### Staging
+- [Fact 1 - e.g., "Staging API: https://staging.api.example.com"]
+- [Fact 2 - e.g., "Use staging DB credentials"]
+
+### Production
+- [Fact 1 - e.g., "Production API: https://api.example.com"]
+- [Fact 2 - e.g., "Auto-scaling enabled"]
+
+---
+
+## Testing
+
+**Framework**: [e.g., "Jest"]
+**Coverage Requirement**: [e.g., ">80% for new code"]
+**Test Types**:
+- Unit tests: [Location, naming convention]
+- Integration tests: [Location, naming convention]
+- E2E tests: [Location, naming convention]
+
+---
+
+## Deployment
+
+**CI/CD**: [e.g., "GitHub Actions"]
+**Deployment Target**: [e.g., "AWS ECS"]
+**Deployment Frequency**: [e.g., "Daily to staging, weekly to prod"]
+
+---
+
+## Change Log
+
+### [YYYY-MM-DD]
+- Initial version
+
+---
+
+**Last Updated**: [DATE]
+**Next Review**: [DATE + 3 months]

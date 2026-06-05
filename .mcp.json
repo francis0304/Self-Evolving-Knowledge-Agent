@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "knowledge-vault": {
+      "command": "node",
+      "args": [
+        "/ABSOLUTE/PATH/TO/Knowledge-Vault/obsidian-mcp-server/dist/index.js"
+      ],
+      "env": {
+        "OBSIDIAN_VAULT_PATH": "/ABSOLUTE/PATH/TO/Knowledge-Vault"
+      }
+    }
+  }
+}

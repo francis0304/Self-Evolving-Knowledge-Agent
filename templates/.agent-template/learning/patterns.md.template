@@ -1,0 +1,46 @@
+# Reusable Patterns
+
+---
+
+## Pattern: [Pattern Name]
+
+**Domain**: [Area this applies to - e.g., SQL, API, Frontend, DevOps]
+
+**Problem**: [What problem this pattern solves]
+
+**Solution**: [General approach - not task-specific]
+
+**Example**:
+```
+[Concrete code/command/config example]
+```
+
+**When to Use**:
+- [Situation 1]
+- [Situation 2]
+- [Situation 3]
+
+**When NOT to Use**:
+- [Anti-pattern scenario 1]
+- [Anti-pattern scenario 2]
+
+**Related Lessons**:
+- [Lesson 1 that led to this pattern]
+- [Lesson 2 that confirmed it]
+
+**Confidence**: [High / Medium / Low] - Based on [N] confirmations
+
+**Usage**: Applied in [N] tasks
+
+**Success Rate**: [XX%]
+
+**Time Saved**: [Estimated - e.g., "30 min per task"]
+
+**Last Used**: [Date]
+
+**Promoted From**: lessons.md ([Date])
+
+---
+
+**Created**: [DATE]
+**Last Updated**: [DATE]

@@ -1,0 +1,34 @@
+# Lessons Learned
+
+---
+
+## [YYYY-MM-DD]: [Lesson Title]
+
+**Context**: [What task/situation led to this discovery]
+
+**Problem**: [What went wrong or was challenging]
+
+**Discovery**: [Root cause or key insight]
+
+**Solution**: [How it was resolved]
+
+**Impact**: [How this helps future tasks]
+
+**Applies To**: [Which tasks/domains benefit from this lesson]
+
+**Confidence**: [Low / Medium / High] - Based on [N occurrence(s)]
+
+**Related**:
+- [Link to other lessons if applicable]
+- [Link to pattern if promoted]
+
+---
+
+## Archive
+
+[Move lessons older than 6 months with no repeats here]
+
+---
+
+**Created**: [DATE]
+**Last Updated**: [DATE]

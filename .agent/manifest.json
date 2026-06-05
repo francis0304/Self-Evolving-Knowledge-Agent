@@ -1,0 +1,164 @@
+{
+  "name": "Knowledge-Vault Agent System",
+  "version": "1.1",
+  "domain": "Obsidian Knowledge Vault",
+  "architecture": "delegation-first",
+  "created": "2026-06-03",
+  "last_updated": "2026-06-04",
+  "subagents": [
+    {
+      "name": "link-checker",
+      "path": "agents/link-checker.md",
+      "tags": ["validation", "links", "orphans"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "indexer",
+      "path": "agents/indexer.md",
+      "tags": ["index", "navigation", "organization"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "metadata-keeper",
+      "path": "agents/metadata-keeper.md",
+      "tags": ["frontmatter", "tagging", "metadata"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "sync-keeper",
+      "path": "agents/sync-keeper.md",
+      "tags": ["sync", "wiki-patterns", "external-repos"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "moc-builder",
+      "path": "agents/moc-builder.md",
+      "tags": ["moc", "topic-maps", "clustering"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    }
+  ],
+  "skills": [
+    {
+      "name": "optimize-system",
+      "path": "skills/optimize-system.md",
+      "tags": ["meta-optimizer", "optimization", "compaction", "self-improvement"],
+      "tokens": 4200,
+      "confidence": 0.95,
+      "last_used": null,
+      "hit_count": 0,
+      "delegates_to": null,
+      "notes": "Run monthly or when learning/lessons.md >8K tokens"
+    },
+    {
+      "name": "maintain-links",
+      "path": "skills/maintain-links.md",
+      "tags": ["links", "validation"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "update-index",
+      "path": "skills/update-index.md",
+      "tags": ["index", "navigation"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "add-frontmatter",
+      "path": "skills/add-frontmatter.md",
+      "tags": ["frontmatter", "metadata"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "sync-patterns",
+      "path": "skills/sync-patterns.md",
+      "tags": ["sync", "patterns"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    },
+    {
+      "name": "create-moc",
+      "path": "skills/create-moc.md",
+      "tags": ["moc", "topics"],
+      "tokens": null,
+      "confidence": 0.9,
+      "last_used": null,
+      "hit_count": 0
+    }
+  ],
+  "optimization_history": [
+    {
+      "date": "2026-06-04",
+      "type": "health_check",
+      "decision": "skipped",
+      "reason": "System too new and healthy (lessons.md 3.6K/8K, 2 days old, no 3x patterns)",
+      "metrics": {
+        "lessons_size": "3.6K",
+        "lessons_entries": 6,
+        "patterns_size": "5.2K",
+        "patterns_count": 4,
+        "facts_size": "6.7K",
+        "skills_avg": "7K",
+        "duplication": "0%"
+      },
+      "time_invested": "15 min",
+      "next_check": "2026-07-04"
+    }
+  ],
+  "auto_optimization": {
+    "enabled": false,
+    "development": false,
+    "triggers": [
+      {
+        "type": "size_threshold",
+        "target": "learning/lessons.md",
+        "threshold": "8K tokens",
+        "action": "run optimize-system"
+      },
+      {
+        "type": "schedule",
+        "interval": "30 days",
+        "last_check": "2026-06-04",
+        "next_check": "2026-07-04",
+        "action": "run optimize-system"
+      },
+      {
+        "type": "pattern_threshold",
+        "target": "learning/patterns.md",
+        "threshold": "3+ patterns with 3x occurrences",
+        "action": "promote to facts.md"
+      }
+    ]
+  },
+  "health_status": {
+    "last_check": "2026-06-04",
+    "status": "excellent",
+    "lessons_capacity": "45%",
+    "optimization_needed": false,
+    "next_action": "Monitor weekly, optimize by 2026-07-04 or when lessons.md >8K"
+  }
+}

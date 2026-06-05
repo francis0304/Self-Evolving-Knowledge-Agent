@@ -1,0 +1,69 @@
+# Task Archive
+
+---
+
+## [YYYY-MM] (Current Month)
+
+### Week [N] ([Mon Date] - [Sun Date])
+
+#### [Task Name]
+- **Date**: [YYYY-MM-DD]
+- **Type**: [Feature / Bug Fix / Refactor / Documentation / Test]
+- **Outcome**: [Description]
+- **Metrics**:
+  - [Metric 1]: [Value]
+  - [Metric 2]: [Value]
+- **Duration**: [Minutes/Hours]
+- **Files Changed**: [Count]
+- **Link**: [PR #123 / Commit abc123](url)
+- **Notes**: [Optional - special circumstances]
+
+---
+
+### Monthly Summary
+
+**Period**: [Month Year]
+**Total Tasks**: [Count]
+**Success Rate**: [XX%] ([Successful] successful, [Failed] failed)
+**Average Duration**: [Minutes] per task
+**Total Time Spent**: [Hours]
+
+**Top Task Types**:
+1. [Type 1]: [Count] tasks
+2. [Type 2]: [Count] tasks
+3. [Type 3]: [Count] tasks
+
+**Top Contributors**:
+1. [Contributor 1]: [Count] tasks
+2. [Contributor 2]: [Count] tasks
+
+**Key Achievements**:
+- [Achievement 1]
+- [Achievement 2]
+- [Achievement 3]
+
+**Challenges**:
+- [Challenge 1] - [How addressed]
+- [Challenge 2] - [How addressed]
+
+---
+
+## [YYYY-MM] (Previous Month)
+
+### Milestones
+- **[Milestone Name]** ([Date])
+  - [Detail 1]
+  - [Detail 2]
+  - [Link if applicable]
+
+### Week [N] ([Mon Date] - [Sun Date])
+
+[Similar format as current month]
+
+---
+
+## Archive Metadata
+
+**Archive Start**: [First task date]
+**Total Tasks Archived**: [Count]
+**Last Updated**: [DATE]

@@ -1,0 +1,29 @@
+# Node
+node_modules/
+dist/
+
+# Claude Code / Claudian local config
+.claudian/
+.claude/settings.local.json
+
+# Company-specific / private content (keep local only)
+companies/
+journal/daily/*.md
+
+# Environment-specific configs
+.env
+.env.local
+
+# External repo checkouts
+External-Repos/
+external-repos/
+BitBucket/
+
+# Obsidian local state & third-party plugin binaries (users install their own)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
