@@ -1,0 +1,25 @@
+# Changelog — Agent System Edits
+
+> Audit trail of all changes to .agent/ files and knowledge/wiki/ pages.
+> Append-only. Sections: Added, Changed, Proposed, Exported.
+
+## Recent Changes
+
+<!--
+Example entries:
+
+### [2026-06-05] Added
+- skills/graphify-check.md: Session-start graph freshness monitoring
+- Updated index.md: added graphify-check to skill routing table
+
+### [2026-06-05] Changed
+- facts.md: resolved open-question 'ReportType CyclePeriodId' from validation task
+- index.md: added cost hierarchy table and Workflow prohibition
+
+### [2026-06-03] Proposed
+- export-back: narrowing-cast-round → .github/skills/convert-mssql-sp/SKILL.md §Known Pitfalls
+- export-back: pre-flight-data-probe → .github/skills/convert-mssql-sp/SKILL.md §Test Case Design
+
+### [2026-06-01] Exported
+- narrowing-cast-round merged into Global skill (PR #45)
+-->

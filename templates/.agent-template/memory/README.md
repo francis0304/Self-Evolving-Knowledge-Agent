@@ -1,4 +1,20 @@
-# Memory System
+# Memory System (v5.1)
+
+## TL;DR
+
+Three files, three cadences:
+
+| File | What it holds | Updated when |
+|------|---------------|-------------|
+| **facts.md** | Hardened rules, conventions, constraints | Rarely (when project fundamentals change) |
+| **working.md** | Active tasks (rotating 5-item buffer) | After every non-trivial task |
+| **archive.md** | Completed tasks (grep-searchable by tag) | When working.md buffer exceeds 5 |
+
+**Promotion flow**: `learning/lessons (1x) → learning/patterns (3x) → memory/facts (hardened)`
+
+**Who writes**: Only the **main agent** writes to memory. Subagents return results but never touch these files.
+
+---
 
 ## What is the Memory System?
 

@@ -1,4 +1,8 @@
-# Skills Directory
+# Skills Directory (v5.1)
+
+## Quick Start
+
+**New to this?** Copy the universal skills from `universal/` into your `.agent/skills/` directory. They work in any repo. Then create domain-specific skills for your recurring workflows.
 
 ## What are Skills?
 
@@ -456,14 +460,29 @@ IF user_says("convert X to Y"):
 
 ---
 
+## Universal Skills (Bundled)
+
+The `universal/` subdirectory contains 8 skills that work in any repo:
+- `git-ops.md` — Safe git operations
+- `debug.md` — Evidence-first error diagnosis
+- `refactor.md` — Code restructuring
+- `pr-review.md` — Diff analysis and review
+- `meta.md` — Agent system health audit
+- `skill-creator.md` — 3x pattern → new skill proposal
+- `routing-optimizer.md` — Self-learning routing improvement
+- `graphify-check.md` — Knowledge graph freshness monitoring
+
+See `universal/README.md` for details on each.
+
 ## Learn More
 
 - [[.agent-system-introduction]] - Overall architecture
 - [[index.md.template]] - Routing logic
 - [[_template.md]] - Blank skill template
 - [[example-skill.md]] - Annotated example
+- [[universal/README.md]] - Universal skill documentation
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2026-06-03
+**Version**: 2.0 (v5.1 — added universal skills, changelog, cost hierarchy)
+**Last Updated**: 2026-06-05

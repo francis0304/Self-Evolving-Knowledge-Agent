@@ -1,0 +1,141 @@
+# CLAUDE.md — Project Schema for AI Agents
+
+> This file tells the agent how the knowledge system is structured, what the conventions are, and what workflows to follow. It is loaded first on every session.
+
+## Load Order
+
+### Cheap path (default for trivial work)
+Skip everything below if ALL of these hold:
+- Task is a typo fix, single-line comment edit, import sort, or trivial rename within one file
+- No new logic, no new file, no dependency change, no CI touch
+- User's request is ≤1 sentence and unambiguous
+
+Just do it. Still run the post-task loop only if the task surfaced something genuinely new.
+
+### Full path (for everything else)
+1. Read this file (you are here)
+2. Read `.agent/index.md` — routing, skills, delegation patterns
+3. Read `.agent/memory/facts.md` — durable project conventions
+4. If intent matches a workflow skill → load that `.agent/skills/<skill>.md`
+5. If intent matches a Global skill → load `.github/skills/<skill>/SKILL.md`
+6. After task → run the post-task loop below
+
+---
+
+## Agent Architecture (Delegation-First)
+
+You are the **main orchestrator**, not the worker.
+
+### Main Agent Role (You)
+- **Load** the workflow skill matching user intent
+- **Delegate** to subagent per skill instructions
+- **Monitor** subagent progress (returns result as Agent tool output)
+- **Synthesize** result for user (explain what happened, what was learned)
+- **Update memory** (working.md, lessons.md) — subagents do NOT touch memory files
+- **Offer next step** (e.g., after validation FAIL → offer to delegate to fixer)
+
+### When to Execute Directly (NOT delegate)
+- Trivial changes (<5 lines, no business logic)
+- User explicitly says "don't use subagent" or "do it yourself"
+- Reading/grepping for context (use Read/Grep directly for 1-file reads)
+
+### Cost Hierarchy (Memorize This)
+
+| Approach | Token Cost | When to Use |
+|----------|-----------|-------------|
+| Direct execution | 2-5K | Trivial (<5 lines) |
+| **Subagent (Agent tool)** | 5-15K | **Default for 95% of tasks** |
+| Workflow (Workflow tool) | 50-200K | User explicitly approves ("ultracode") |
+
+**CRITICAL**: DO NOT use the Workflow tool unless user says "use a workflow" or "ultracode". Subagents are 10-20x more efficient.
+
+---
+
+## Post-Task Loop (Mandatory — Main Agent Only)
+
+**When to run**: After ANY task meeting at least one condition:
+- Used ≥5 tool calls
+- Encountered ANY error and found a workaround
+- Spawned subagent(s) with confidence <0.8 but task succeeded
+- User explicitly praised the result
+- Modified ≥3 files or created new components
+
+**Steps**:
+1. Update `.agent/memory/working.md` — log the task (goal, approach, outcome, confidence). If buffer exceeds 5 entries, summarize oldest into archive.md.
+2. Append to `.agent/learning/lessons.md` if: errors+workarounds found, new pitfall discovered, user corrected approach.
+3. Resolve any answerable rows in `.agent/memory/facts.md` §"Open questions"
+
+**Critical**: Do NOT wait for user reminder to run this loop. It is MANDATORY.
+
+---
+
+## Knowledge Base Rules (Optional — LLM-Wiki Pattern)
+
+If your repo uses the `knowledge/` directory:
+
+```
+knowledge/
+├── raw/         ← immutable source layer (user curates, agent reads only)
+└── wiki/        ← agent-owned synthesis layer
+    ├── index.md       (catalog of all pages)
+    ├── log.md         (append-only chronology)
+    ├── _template.md   (required page shape)
+    └── *.md           (concept/entity pages)
+```
+
+### Rules
+1. **Raw is immutable.** Never modify `knowledge/raw/`.
+2. **Wiki is yours to own.** Create pages, update them, maintain cross-references.
+3. **Cross-linking is mandatory.** Every non-stub page links to ≥2 other pages.
+4. **Always update `knowledge/wiki/index.md`** when creating/removing pages.
+5. **Always append to `knowledge/wiki/log.md`** with format: `## [YYYY-MM-DD] action | subject → pages touched`
+
+---
+
+## Graphify Integration (Optional — Knowledge Graph)
+
+If graphify is configured for this repo:
+
+**Session start check:**
+```bash
+python scripts/graphify_refresh_manager.py --check
+```
+- Exit 0 → up-to-date, proceed silently
+- Exit 1 → mention in greeting: "Knowledge graph refresh recommended. Run `/graphify . --update` when convenient."
+
+**After graphify completes:**
+```bash
+python scripts/graphify_refresh_manager.py --snapshot
+```
+
+**Post-graphify wiki update trigger**: Read `graphify-out/GRAPH_REPORT.md`, check for god node shifts, new connections, community changes. Offer wiki update if significant.
+
+---
+
+## Repo-Specific Context
+> Customize everything below this line for your specific project.
+
+### What this repo is
+[YOUR DESCRIPTION — e.g., "React dashboard for analytics", "Airflow DAG orchestration platform"]
+
+### Essential Commands
+```bash
+# [Your build/test/deploy commands here]
+```
+
+### Architecture Overview
+```
+[Your high-level architecture diagram]
+```
+
+### Subagent Definitions
+Located in `.claude/agents/`:
+- `worker-1` — [expertise area]
+- `worker-2` — [expertise area]
+- `keeper` — documentation & wiki maintenance
+- `researcher` — pre-flight analysis, pattern mining
+
+### Tracked Patterns
+| Pattern | Status |
+|---|---|
+| [Pattern from lessons] | [count]× [confidence] |

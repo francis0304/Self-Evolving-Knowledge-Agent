@@ -1,69 +1,20 @@
 # Task Archive
 
----
+> Completed tasks moved from working.md when buffer exceeds 5. Grep-searchable by tag.
+> Format: [DATE] #tag — summary (outcome, confidence, key files)
 
-## [YYYY-MM] (Current Month)
+## Entries
 
-### Week [N] ([Mon Date] - [Sun Date])
+<!--
+Example entries (one line each for grep-ability):
 
-#### [Task Name]
-- **Date**: [YYYY-MM-DD]
-- **Type**: [Feature / Bug Fix / Refactor / Documentation / Test]
-- **Outcome**: [Description]
-- **Metrics**:
-  - [Metric 1]: [Value]
-  - [Metric 2]: [Value]
-- **Duration**: [Minutes/Hours]
-- **Files Changed**: [Count]
-- **Link**: [PR #123 / Commit abc123](url)
-- **Notes**: [Optional - special circumstances]
+[2026-05-01] #migration — Converted SP block M14 to Redshift (success, 0.95, store_procedures/rpt.sql)
+[2026-04-28] #validation — Fixed zero-row PASS in WalletTopUp case (success, 0.90, cases/WalletTopUp/)
+[2026-04-25] #refactor — Extracted common FX lookup into helper (success, 0.85, src/utils/fx.py)
+[2026-04-20] #debug — Resolved LATERAL subquery error in PL/pgSQL (success, 0.90, store_procedures/rpt.sql)
+-->
 
 ---
 
-### Monthly Summary
-
-**Period**: [Month Year]
-**Total Tasks**: [Count]
-**Success Rate**: [XX%] ([Successful] successful, [Failed] failed)
-**Average Duration**: [Minutes] per task
-**Total Time Spent**: [Hours]
-
-**Top Task Types**:
-1. [Type 1]: [Count] tasks
-2. [Type 2]: [Count] tasks
-3. [Type 3]: [Count] tasks
-
-**Top Contributors**:
-1. [Contributor 1]: [Count] tasks
-2. [Contributor 2]: [Count] tasks
-
-**Key Achievements**:
-- [Achievement 1]
-- [Achievement 2]
-- [Achievement 3]
-
-**Challenges**:
-- [Challenge 1] - [How addressed]
-- [Challenge 2] - [How addressed]
-
----
-
-## [YYYY-MM] (Previous Month)
-
-### Milestones
-- **[Milestone Name]** ([Date])
-  - [Detail 1]
-  - [Detail 2]
-  - [Link if applicable]
-
-### Week [N] ([Mon Date] - [Sun Date])
-
-[Similar format as current month]
-
----
-
-## Archive Metadata
-
-**Archive Start**: [First task date]
-**Total Tasks Archived**: [Count]
+**Archive Start**: [DATE]
 **Last Updated**: [DATE]

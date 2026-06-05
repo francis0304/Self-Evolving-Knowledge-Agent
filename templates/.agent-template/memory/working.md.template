@@ -1,88 +1,31 @@
-# Active Tasks
+# Working Memory
+
+> Active tasks — rotating 5-item buffer. When buffer exceeds 5, summarize oldest into archive.md.
+> Updated by main agent after each non-trivial task. Subagents do NOT write here.
+
+## Active Task
+
+| Field | Value |
+|---|---|
+| Goal | [What we're trying to accomplish] |
+| Approach | [How we're doing it] |
+| Status | in-progress |
+| Confidence | 0.0-1.0 |
+| Files touched | [] |
+
+## Recent Completions
+
+<!--
+Format for completed tasks:
+
+### [YYYY-MM-DD] — [Task Name]
+- **Goal**: one line
+- **Outcome**: success/partial/fail
+- **Confidence**: 0.0-1.0
+- **Key learning**: [if any, or "none"]
+- **Files**: [list of modified files]
+-->
 
 ---
 
-## Today: [YYYY-MM-DD]
-
-### In Progress
-
-#### [Task Name]
-- **Started**: [HH:MM]
-- **Status**: [In Progress / Blocked / Waiting]
-- **Actions Taken**:
-  - [Action 1]
-  - [Action 2]
-- **Next Steps**:
-  - [Step 1]
-  - [Step 2]
-- **Blocker**: [If any - description + dependency]
-- **Estimated Time Remaining**: [Minutes]
-
----
-
-### Completed Today
-
-#### [Task Name]
-- **Completed**: [HH:MM]
-- **Duration**: [Minutes]
-- **Outcome**: [Description]
-- **Metrics**:
-  - [Metric 1]: [Value]
-  - [Metric 2]: [Value]
-- **Files Changed**:
-  - [File 1] - [What changed]
-  - [File 2] - [What changed]
-- **Notes**: [Any important details]
-
----
-
-## Recent (Last 7 Days)
-
-### [YYYY-MM-DD]
-
-#### [Task Name]
-- **Status**: [Complete / Failed / Deferred]
-- **Outcome**: [Summary]
-- **Key Learnings**: [If any]
-- **Link**: [PR #123 or commit hash]
-
----
-
-## Upcoming
-
-### Planned (Next 3 Days)
-- [ ] [Task 1 - Priority: High] - [Brief description]
-- [ ] [Task 2 - Priority: Medium] - [Brief description]
-- [ ] [Task 3 - Priority: Low] - [Brief description]
-
-### Backlog
-- [ ] [Task 1 - Priority: Medium] - [Brief description]
-- [ ] [Task 2 - Priority: Low] - [Brief description]
-
-### Deferred
-- [ ] [Task 1] - Reason: [Why deferred] - Revisit: [Date]
-- [ ] [Task 2] - Reason: [Why deferred] - Revisit: [Date]
-
----
-
-## Blockers & Dependencies
-
-### Active Blockers
-- **[Blocker 1]**: [Description] - Waiting on [Dependency] - ETA: [Date/Time]
-- **[Blocker 2]**: [Description] - Blocked by [Issue] - Resolution: [Plan]
-
-### Resolved This Week
-- ~~[Blocker 1]~~ - Resolved [DATE]: [How it was resolved]
-
----
-
-## Context Notes
-
-[Any additional context that helps understand current work state]
-
-- [Note 1]
-- [Note 2]
-
----
-
-**Last Updated**: [YYYY-MM-DD HH:MM]
+**Last Updated**: [DATE]

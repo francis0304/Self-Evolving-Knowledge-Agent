@@ -1,73 +1,84 @@
 # Knowledge Vault - Index
 
+<!-- Note: [[wiki-links]] are Obsidian's native link format. In standard markdown viewers, navigate manually to the referenced path. -->
+
 Last Updated: 2026-06-05 | v5.1 (Current)
 
 ---
 
-## 🎯 Current Status
+## Current Status
 
 | Component | Version | Status |
 |-----------|---------|--------|
-| Agent System | v5.1 | ✅ Latest |
-| Redshift Reporting | v5.1 | 🟢 Flagship |
-| Knowledge Graph | 193 nodes | 📈 Growing |
+| Agent System | v5.1 | Latest |
+| Template System | v2.0 | Ready for any repo |
+| Knowledge Graph | 193 nodes | Growing |
+| MCP Server | v1.0 | Production |
 
-**Latest Release**: 2026-06-05 - Agent System v5.1 (Workflow prohibition + Self-evolution)
+**Latest Release**: 2026-06-05 - Agent Template v2.0 (universal skills, graphify refresh, cost hierarchy)
 
 ---
 
-## 📁 Core Structure
+## Core Structure
 
 **Universal Knowledge** → `/knowledge/`
-- Architecture patterns
-- Tool guides (MCP, Airflow, Spark, etc.)
+- Architecture patterns (agent system deep dives)
+- Tool guides (MCP, Airflow, Spark, Terraform, AWS)
 - Best practices
 
-**Company Work** → `/companies/current-company/`
-- Data Platform implementations
-- Project tracking (7 active repos)
-- Reference documentation
+**Templates** → `/templates/`
+- `.agent-template/` — Drop-in agent system for any repo
+- `CLAUDE.md.template` — Wire agent system into Claude Code
+- `scripts/` — Graphify refresh manager and utilities
 
-**Learning** → `/journal/` + `/learning/` + `/lessons/`
-- Daily work logs
-- Course notes
-- Distilled lessons
+**MCP Server** → `/obsidian-mcp-server/`
+- Node/TypeScript MCP server
+- Vault operations (read, write, search, links, backlinks)
 
 ---
 
-## 🔗 Essential Links
+## Essential Links
 
-### Agent System (Quick Start)
-- [[knowledge/architecture/Agent System Introduction]] - Learn v4 baseline
-- [[knowledge/architecture/Agent System Cost Optimization v5.1]] - Current v5.1 spec
-- [[CLAUDE.md]] - Working conventions
+### Getting Started (New to this?)
+- [[README]] - Project overview and quick start
+- [[templates/.agent-template/README]] - Drop-in setup guide (5 minutes)
+- [[templates/CLAUDE.md.template]] - Claude Code integration template
 
-### Current Work
-- [[companies/current-company/projects/Redshift Reporting]] - Primary project
-- [[companies/current-company/data-platform/Data Platform Overview]] - Platform map
-- [[companies/current-company/data-platform/Data Platform Repos - Agent System Status]] - Repo health
+### Architecture Deep Dives
+- [[knowledge/architecture/Agent System Architecture]] - Complete system guide
+- [[knowledge/architecture/Agent System Cost Optimization v5.1]] - Cost hierarchy and patterns
+- [[knowledge/architecture/Complete Ecosystem Overview]] - Full ecosystem review
+- [[knowledge/architecture/The Complete AI Ecosystem - Diagrams]] - Visual architecture
 
 ### MCP Integration
 - [[knowledge/tools/mcp/README - Start Here]] - Setup guide
 - [[knowledge/tools/mcp/core/MCP Quick Reference]] - Cheat sheet
+- [[knowledge/tools/mcp/core/MCP Tutorial]] - Step-by-step tutorial
 
 ---
 
-## 📊 Vault Stats
-- Notes: 78 | Daily logs: 5 | Archived: 2 | Tags: 12 core tags
+## Vault Stats
+- Notes: 78+ | Architecture docs: 6 | Tool guides: 30+ | Templates: 15+
 - Graph: 193 nodes, 326 edges, 14 communities
 
 ---
 
-## 🚀 Active Projects
-1. **Redshift Reporting** (v5.1) - MSSQL→Redshift migration
-2. **Reporting API** (v4.0) - Stable, needs upgrade
-3. **DataGen, Glue, Airflow** (v3.x) - Queued for v5.1
-4. **Infrastructure, SRE** (v1-2) - Legacy
+## Template Coverage
+
+| Use Case | Included? | Where |
+|----------|-----------|-------|
+| Agent routing (index.md) | Yes | `.agent-template/index.md.template` |
+| Memory system (3-tier) | Yes | `.agent-template/memory/` |
+| Learning loop | Yes | `.agent-template/learning/` |
+| Universal skills (8) | Yes | `.agent-template/skills/universal/` |
+| CLAUDE.md integration | Yes | `templates/CLAUDE.md.template` |
+| Graphify refresh | Yes | `templates/scripts/graphify_refresh_manager.py` |
+| MCP server | Yes | `obsidian-mcp-server/` |
+| Domain skill examples | Yes | `.agent-template/skills/README.md` |
 
 ---
 
-## 📝 Quick Tasks
+## Quick Tasks
 
 See [[CLAUDE.md#Common-Development-Tasks]] for:
 - Building MCP server
@@ -77,5 +88,5 @@ See [[CLAUDE.md#Common-Development-Tasks]] for:
 
 ---
 
-Maintained by: Francis  
+Maintained by: Francis
 Vault Created: 2026-05-26

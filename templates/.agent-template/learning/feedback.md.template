@@ -1,30 +1,25 @@
 # User Feedback & Corrections
 
----
+> Captures user signals (corrections, praise, redirections) for routing optimization.
+> Format: [DATE] SIGNAL — context + what to do differently.
 
-## [YYYY-MM-DD]: [Correction Title]
+<!--
+Example entries:
 
-**Context**: [What task was being done]
+## [2026-06-05] CORRECTION — "Don't use workflow for this"
+Context: Agent was about to spawn Workflow tool for a 3-file change.
+User: "Just use a subagent, this isn't that complex."
+Learning: Default to subagent unless task genuinely needs 10+ parallel agents.
+Applied: Updated index.md cost hierarchy, added STOP-and-check pattern.
 
-**Agent Action**: [What agent did/planned]
+## [2026-06-03] PRAISE — "The parallel validator + wiki-keeper was smart"
+Context: After SP conversion, agent delegated to validator and wiki-keeper simultaneously.
+Learning: Parallel execution for independent post-tasks is valued by user.
+Applied: Confirmed existing pattern (no change needed).
 
-**User Correction**: [What user said instead]
-
-**Reason**: [Why agent was wrong - misunderstanding, wrong assumption]
-
-**Learning**: [What to do differently next time]
-
-**Applied To**: [Which routing rule/subagent/skill updated]
-
-**Status**: [Fixed / Pending / Cannot Fix]
-
----
-
-## Archive
-
-[Move resolved corrections older than 3 months here]
-
----
-
-**Created**: [DATE]
-**Last Updated**: [DATE]
+## [2026-06-01] REDIRECT — "Check the actual error before guessing"
+Context: Agent proposed a fix without reading the full stack trace.
+User: "Read the error first."
+Learning: Evidence-first debugging — always read full trace before proposing fixes.
+Applied: Reinforces debug.md skill §step-1.
+-->

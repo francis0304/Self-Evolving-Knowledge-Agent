@@ -1,46 +1,30 @@
-# Reusable Patterns
+# Patterns — Recurring Insights
 
----
+> Aggregated from lessons.md. When a pattern reaches 3x confirmations with high confidence,
+> it should be promoted to facts.md (as a rule) or to a new skill (as a workflow).
+> Format: TAG — pattern description (count x confidence)
 
-## Pattern: [Pattern Name]
+<!--
+Example entries:
 
-**Domain**: [Area this applies to - e.g., SQL, API, Frontend, DevOps]
+## Active Patterns
 
-**Problem**: [What problem this pattern solves]
+| Tag | Pattern | Count | Confidence | Action |
+|---|---|---|---|---|
+| migration.cast-round | Narrowing CAST needs ROUND first (truncates, not rounds) | 3x | high | → facts.md |
+| validation.zero-rows | Pre-flight data probe before authoring cases | 3x | high | → skill proposal |
+| deploy.reserved-words | PL/pgSQL reserved words need quoting as aliases | 2x | medium | monitoring |
+| review.column-casing | MySQL-origin views have lowercase columns | 1x | low | monitoring |
 
-**Solution**: [General approach - not task-specific]
+## Promoted (moved to facts or skills)
 
-**Example**:
-```
-[Concrete code/command/config example]
-```
+| Tag | Pattern | Promoted To | Date |
+|---|---|---|---|
+| migration.cast-round | Narrowing CAST needs ROUND | facts.md §critical-rules | 2026-05-08 |
 
-**When to Use**:
-- [Situation 1]
-- [Situation 2]
-- [Situation 3]
+## Tracking Notes
 
-**When NOT to Use**:
-- [Anti-pattern scenario 1]
-- [Anti-pattern scenario 2]
-
-**Related Lessons**:
-- [Lesson 1 that led to this pattern]
-- [Lesson 2 that confirmed it]
-
-**Confidence**: [High / Medium / Low] - Based on [N] confirmations
-
-**Usage**: Applied in [N] tasks
-
-**Success Rate**: [XX%]
-
-**Time Saved**: [Estimated - e.g., "30 min per task"]
-
-**Last Used**: [Date]
-
-**Promoted From**: lessons.md ([Date])
-
----
-
-**Created**: [DATE]
-**Last Updated**: [DATE]
+- Patterns at 2x: watch for third occurrence, then propose promotion
+- Patterns at 1x: just monitoring, don't act yet
+- Promoted patterns: keep here as reference, don't delete
+-->

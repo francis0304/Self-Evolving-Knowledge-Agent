@@ -1,136 +1,81 @@
 # Project Facts
 
-## Repository Information
-**Name**: [Repository name]
-**Purpose**: [One-line description]
-**Tech Stack**: [Languages, frameworks, tools]
-**Version**: [Current version]
-**Repository URL**: [Link]
+> Durable conventions and constraints. Updated rarely — only when rules change.
+> Promotion path: lessons (1x) → patterns (3x) → facts (hardened here).
 
----
+## Stack
+- **Language**: [e.g., Python 3.12, TypeScript 5.x]
+- **Framework**: [e.g., FastAPI, Next.js, Airflow]
+- **Database**: [e.g., PostgreSQL 15, Redshift]
+- **CI/CD**: [e.g., GitHub Actions, Jenkins]
+- **Deploy target**: [e.g., AWS ECS, Vercel, K8s]
 
-## Code Conventions
+## Conventions
 
 ### Naming
-- [Convention 1 - e.g., "camelCase for variables"]
-- [Convention 2 - e.g., "PascalCase for classes"]
-- [Convention 3 - e.g., "UPPER_SNAKE for constants"]
-- [Convention 4 - e.g., "Prefix private methods with _"]
+- [e.g., camelCase for variables, PascalCase for classes]
+- [e.g., kebab-case for file names]
+- [e.g., UPPER_SNAKE for constants and env vars]
 
 ### Structure
-- [Convention 1 - e.g., "One class per file"]
-- [Convention 2 - e.g., "Tests in __tests__ directory"]
-- [Convention 3 - e.g., "Utils in src/utils/"]
-- [Convention 4 - e.g., "Max file size: 500 lines"]
+- [e.g., src/ for source, tests/ for tests]
+- [e.g., One module per file, max 500 lines]
+- [e.g., Migrations in db/migrations/V{n}__description.sql]
 
-### Style
-- [Convention 1 - e.g., "2-space indentation"]
-- [Convention 2 - e.g., "Max 80 chars per line"]
-- [Convention 3 - e.g., "JSDoc comments required for public APIs"]
-- [Convention 4 - e.g., "Use single quotes for strings"]
-
----
+### Git
+- [e.g., Conventional Commits: type(scope): subject]
+- [e.g., Branch naming: type/TICKET-description]
+- [e.g., Squash merge to main, preserve commits on feature branches]
 
 ## Critical Rules
 
 ### Always
-- [Rule 1 - e.g., "Always validate user inputs"]
-- [Rule 2 - e.g., "Always use parameterized queries"]
-- [Rule 3 - e.g., "Always catch async errors"]
-- [Rule 4 - e.g., "Always write tests for new features"]
+- [e.g., Always validate user input at API boundaries]
+- [e.g., Always use parameterized queries (never string interpolation)]
+- [e.g., Always write tests for new features before merging]
 
 ### Never
-- [Rule 1 - e.g., "Never commit secrets"]
-- [Rule 2 - e.g., "Never use eval()"]
-- [Rule 3 - e.g., "Never ignore TypeScript errors"]
-- [Rule 4 - e.g., "Never deploy without tests passing"]
+- [e.g., Never commit secrets (.env, credentials, API keys)]
+- [e.g., Never use eval() or dynamic code execution]
+- [e.g., Never deploy without CI passing]
 
----
+## Architecture
 
-## File Locations
+### Key paths
+```
+[your-repo]/
+├── src/              ← [description]
+├── tests/            ← [description]
+├── scripts/          ← [description]
+├── config/           ← [description]
+└── docs/             ← [description]
+```
 
-**Source code**: [e.g., src/]
-**Tests**: [e.g., __tests__/]
-**Configs**: [e.g., config/]
-**Documentation**: [e.g., docs/]
-**Build output**: [e.g., dist/]
-**Scripts**: [e.g., scripts/]
-
----
-
-## Dependencies
-
-### Required
-- [Dependency 1 - e.g., "Node.js >= 18"]
-- [Dependency 2 - e.g., "PostgreSQL 14"]
-- [Dependency 3 - e.g., "Python 3.9+"]
-
-### Optional
-- [Dependency 1 - e.g., "Redis (for caching)"]
-- [Dependency 2 - e.g., "Docker (for local dev)"]
-
----
+### Schemas / Modules
+- [e.g., public schema for app tables, audit schema for logs]
+- [e.g., core/ for business logic, adapters/ for external integrations]
 
 ## Domain-Specific Facts
 
-[Add sections specific to your domain - examples below]
+[Add sections specific to your domain:]
+- [e.g., Currency values always stored as DECIMAL(19,4)]
+- [e.g., All timestamps in UTC, display timezone conversion in UI layer]
+- [e.g., Feature flags managed in LaunchDarkly, not code]
 
-### Example: API Development
-**Base URL**: [e.g., https://api.example.com/v1]
-**Auth**: [e.g., "Bearer tokens, JWT"]
-**Rate Limits**: [e.g., "100 req/min per API key"]
+## Forbidden Patterns
 
-### Example: Database
-**Primary DB**: [e.g., "PostgreSQL 14"]
-**Schema**: [e.g., "public for app, audit for logs"]
-**Migrations**: [e.g., "Flyway, versioned V1__*.sql"]
+- [e.g., DO NOT edit applied migration files (V__ prefix)]
+- [e.g., DO NOT bypass pre-commit hooks (--no-verify)]
+- [e.g., DO NOT query production directly from local machine]
 
-### Example: Frontend
-**Framework**: [e.g., "React 18 with TypeScript"]
-**State**: [e.g., "Redux Toolkit"]
-**Styling**: [e.g., "Tailwind CSS"]
+## Open Questions
 
----
+> Unknowns the agent couldn't resolve yet. Each row should hint at which task type
+> will likely answer it. Resolved when evidence arrives — move answer to relevant section above.
 
-## Environment-Specific
-
-### Development
-- [Fact 1 - e.g., "Local DB on port 5432"]
-- [Fact 2 - e.g., "Hot reload enabled"]
-
-### Staging
-- [Fact 1 - e.g., "Staging API: https://staging.api.example.com"]
-- [Fact 2 - e.g., "Use staging DB credentials"]
-
-### Production
-- [Fact 1 - e.g., "Production API: https://api.example.com"]
-- [Fact 2 - e.g., "Auto-scaling enabled"]
-
----
-
-## Testing
-
-**Framework**: [e.g., "Jest"]
-**Coverage Requirement**: [e.g., ">80% for new code"]
-**Test Types**:
-- Unit tests: [Location, naming convention]
-- Integration tests: [Location, naming convention]
-- E2E tests: [Location, naming convention]
-
----
-
-## Deployment
-
-**CI/CD**: [e.g., "GitHub Actions"]
-**Deployment Target**: [e.g., "AWS ECS"]
-**Deployment Frequency**: [e.g., "Daily to staging, weekly to prod"]
-
----
-
-## Change Log
-
-### [YYYY-MM-DD]
-- Initial version
+| Question | Context | Likely resolver |
+|---|---|---|
+| [e.g., Is the audit schema replicated to read-replica?] | [Noticed audit queries are slow] | [DBA or infra task] |
 
 ---
 

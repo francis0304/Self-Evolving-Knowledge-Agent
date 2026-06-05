@@ -1,34 +1,24 @@
 # Lessons Learned
 
----
+> Append-only log of what worked/failed. Never delete — only compact into archive.
+> When file exceeds ~8K tokens, move entries older than 30 days into archive file.
+> Format: [DATE] TAG: title — key insight. Link to facts/skills if rule was created.
 
-## [YYYY-MM-DD]: [Lesson Title]
+<!--
+Example entries:
 
-**Context**: [What task/situation led to this discovery]
+## [2026-06-05] system: Workflow tool costs 50-200K tokens
+Discovered that Workflow tool spawns 10+ agents at ~15K each.
+Subagent approach (Agent tool) achieves same result at 5-15K.
+→ Added to facts.md §forbidden, updated index.md cost table.
 
-**Problem**: [What went wrong or was challenging]
+## [2026-06-03] deploy: PL/pgSQL reserved word collision
+`DO` is a reserved word in PL/pgSQL — using it as an alias causes parse error.
+Fix: quote the alias ("DO") or rename to non-reserved word.
+→ Added to facts.md §domain-specific.
 
-**Discovery**: [Root cause or key insight]
-
-**Solution**: [How it was resolved]
-
-**Impact**: [How this helps future tasks]
-
-**Applies To**: [Which tasks/domains benefit from this lesson]
-
-**Confidence**: [Low / Medium / High] - Based on [N occurrence(s)]
-
-**Related**:
-- [Link to other lessons if applicable]
-- [Link to pattern if promoted]
-
----
-
-## Archive
-
-[Move lessons older than 6 months with no repeats here]
-
----
-
-**Created**: [DATE]
-**Last Updated**: [DATE]
+## [2026-06-01] validation: Zero-row PASS is meaningless
+Validation case passed with 0 rows on both sides — not a real test.
+Fix: pre-flight data probe before authoring validation cases.
+→ Pattern count: 3x. Promoted to facts.md.
+-->

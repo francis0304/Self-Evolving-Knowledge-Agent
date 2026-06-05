@@ -1,4 +1,21 @@
-# Learning System
+# Learning System (v5.1)
+
+## TL;DR
+
+Four files that form an autonomous improvement loop:
+
+| File | What it captures | Triggers |
+|------|-----------------|----------|
+| **lessons.md** | What worked/failed (append-only) | After tasks with errors, pitfalls, or corrections |
+| **feedback.md** | User corrections & praise | Any time user redirects or confirms approach |
+| **patterns.md** | Recurring insights (3x threshold) | Automatic from lessons.md scan |
+| **changelog.md** | Audit trail of all .agent/ edits | After any skill/routing/memory change |
+
+**Key mechanism**: When a lesson appears 3 times → promote to pattern → if universal, promote to `memory/facts.md`.
+
+**Who writes**: Only the **main agent** (post-task loop). Subagents don't touch learning files.
+
+---
 
 ## What is the Learning System?
 

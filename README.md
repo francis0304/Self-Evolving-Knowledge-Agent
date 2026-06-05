@@ -1,107 +1,238 @@
 # Knowledge Vault — Self-Optimizing `.agent` System
 
-An Obsidian knowledge vault paired with a **self-optimizing AI agent system** (`.agent/`) and a
-**Model Context Protocol (MCP) server** that lets Claude Code read, write, search, and traverse the
-vault as a first-class graph.
+> A reference architecture for **delegation-first, self-improving AI agent ecosystems** built on Claude Code.
 
-This repo is shared as a **reference architecture** for building a delegation-first, self-improving
-agent ecosystem on top of a personal knowledge base. The example/business content has been replaced
-with generic placeholders — fork it and point it at your own vault.
+## The Idea
 
-## What's inside
+Most people use AI coding assistants as a single monolithic agent — one context window juggling everything. This works for small tasks but breaks down when:
 
-| Component | Path | What it does |
-|-----------|------|--------------|
-| **`.agent` system** | `.agent/` | Delegation-first routing, skills, three-tier memory, and a monthly self-optimizer |
-| **Agent template** | `templates/.agent-template/` | Drop-in starter to add the same agent system to any repo |
-| **MCP server** | `obsidian-mcp-server/` | Node/TypeScript MCP server exposing vault operations to Claude Code |
-| **Knowledge base** | `knowledge/` | Portable, vendor-neutral patterns (Airflow, Spark, Terraform, AWS, MCP) |
-| **Architecture docs** | `knowledge/architecture/` | Deep dives on how the agent ecosystem is designed and evolves |
+- Context fills up and the agent "forgets" critical rules
+- Every task reinvents the wheel (no memory of past solutions)
+- Complex tasks timeout or hallucinate mid-way
 
-## The `.agent` system at a glance
+The `.agent` system solves this with three key innovations:
 
-A **delegation-first** design: a thin router (`.agent/index.md`) dispatches user intent to specialized
-skills, backed by a learning loop that hardens experience into reusable rules.
+### 1. Delegation-First Architecture
+A thin **router** dispatches tasks to **specialized subagents** — each gets a clean context window with only what it needs. 80% context reduction vs monolithic.
 
 ```
-Request → Router (.agent/index.md)
-            ├─ link health      → maintain-links
-            ├─ index upkeep      → update-index
-            ├─ metadata/tagging  → add-frontmatter
-            ├─ pattern sync      → sync-patterns
-            ├─ topic maps (MOC)  → create-moc
-            └─ self-optimization → optimize-system
+User Request → Router (.agent/index.md)
+                 ├─ matches skill?  → load skill → delegates to subagent(s)
+                 ├─ trivial?        → handle directly (no overhead)
+                 └─ complex?        → @researcher pre-flight → then delegate
 ```
 
-**Three-tier memory / learning promotion flow:**
+### 2. Autonomous Learning Loop
+The system learns from every task — errors become workarounds, workarounds become patterns, patterns become rules:
 
 ```
 lessons (1×)  →  patterns (3×)  →  facts (hardened rules)
 ```
 
-`optimize-system` runs monthly (or when `lessons.md` exceeds ~8K tokens) to compact lessons, promote
-recurring patterns to facts, distill skills, and keep context lean. The system can also generate new
-skills when it detects a capability gap (`skill-creator`) and tune its own routing (`routing-optimizer`).
+When a pattern appears 3 times, it's promoted to a skill. The system literally grows smarter with use.
 
-See [`knowledge/architecture/Agent System Introduction.md`](knowledge/architecture/Agent%20System%20Introduction.md)
-and the [Meta-Optimizer](knowledge/architecture/Agent%20System%20Meta-Optimizer.md) for the full design.
+### 3. Cost-Conscious Execution
+Every token counts. The system enforces a clear cost hierarchy:
 
-## Getting started
+| Approach | Token Cost | When to Use |
+|----------|-----------|-------------|
+| Direct execution | 2-5K | Trivial (<5 lines, no logic) |
+| **Subagent** (Agent tool) | 5-15K | **Default for 95% of tasks** |
+| Workflow (multi-agent) | 50-200K | User approval required |
 
-### 1. Open the vault
+---
 
-Open this folder in [Obsidian](https://obsidian.md). Install the community plugins listed in
-`.obsidian/community-plugins.json` from within Obsidian (their binaries are not bundled here).
+## What's Inside
 
-### 2. Build and run the MCP server
+| Component | Path | What it does |
+|-----------|------|--------------|
+| **Agent template** | `templates/.agent-template/` | Drop-in `.agent` system for any repo |
+| **CLAUDE.md template** | `templates/CLAUDE.md.template` | Wire the agent system into Claude Code |
+| **MCP server** | `obsidian-mcp-server/` | Node/TypeScript MCP server for Obsidian vault operations |
+| **Knowledge base** | `knowledge/` | Portable, vendor-neutral patterns (Airflow, Spark, Terraform, AWS, MCP) |
+| **Architecture docs** | `knowledge/architecture/` | Deep dives on the agent ecosystem design |
+
+---
+
+## Quick Start (Add to Any Repo in 5 Minutes)
+
+### Step 1: Copy the template
 
 ```bash
-cd obsidian-mcp-server
-npm install
-npm run build      # compiles TypeScript → dist/
+cp -r /path/to/Knowledge-Vault-OSS/templates/.agent-template your-repo/.agent
 ```
 
-### 3. Point Claude Code at it
+### Step 2: Remove `.template` extensions
 
-Copy `.mcp.json` and replace the placeholder paths with the **absolute path** to your clone:
+```bash
+cd your-repo/.agent
+for f in $(find . -name "*.template"); do mv "$f" "${f%.template}"; done
+```
 
+### Step 3: Customize three files
+
+1. **`.agent/index.md`** — Define your routing rules (what triggers what)
+2. **`.agent/memory/facts.md`** — Document your project conventions
+3. **Copy 1-2 skills** from `templates/.agent-template/skills/universal/` that match your workflow
+
+### Step 4: Wire into Claude Code
+
+Copy `templates/CLAUDE.md.template` to your repo root as `CLAUDE.md` and customize the repo-specific sections.
+
+### Step 5: Start working
+
+The system bootstraps itself. After ~5 tasks, lessons accumulate. After ~15 tasks, the routing optimizer proposes improvements. After ~30 tasks, the system runs like a well-oiled machine.
+
+---
+
+## The `.agent` System at a Glance
+
+```
+.agent/
+├── index.md              ← Router: matches intent → delegates to skill/subagent
+├── skills/               ← Workflow playbooks (multi-step orchestration)
+│   ├── universal/        ← Works in any repo (git, debug, refactor, meta)
+│   └── domain/           ← Your domain-specific skills
+├── memory/               ← Durable project knowledge
+│   ├── facts.md          ← Hardened rules (conventions, constraints)
+│   ├── working.md        ← Active tasks (rotating 5-item buffer)
+│   └── archive.md        ← Completed task history (grep-searchable)
+└── learning/             ← Autonomous improvement
+    ├── lessons.md        ← What worked/failed (append-only)
+    ├── patterns.md       ← Recurring patterns (3× → skill promotion)
+    ├── feedback.md       ← User corrections (instant routing fixes)
+    └── changelog.md      ← Audit trail of all system changes
+```
+
+### Key Mechanisms
+
+| Mechanism | What it Does | How it Triggers |
+|-----------|-------------|-----------------|
+| **Post-task loop** | Log learnings, resolve open questions, update memory | After any task with ≥5 tool calls or errors |
+| **Skill creator** | Detects 3× patterns → proposes new skills | Automatic from lessons.md analysis |
+| **Routing optimizer** | Learns synonym triggers, improves accuracy | Weekly cycle or after routing failures |
+| **Graphify check** | Monitors knowledge graph freshness | Session start (silent if fresh) |
+| **Export-back** | Promotes validated local lessons → global skills | When lesson contradicts/extends a global skill |
+
+---
+
+## The Knowledge Graph (Graphify)
+
+Optional but powerful: run `/graphify .` to generate an interactive knowledge graph of your codebase.
+
+**What it gives you:**
+- **God nodes** — Files/entities with highest connectivity (touch carefully)
+- **Communities** — Natural module boundaries (inform subagent design)
+- **Surprising connections** — Non-obvious coupling between components
+- **Smart refresh** — Only rebuilds when meaningful changes accumulate
+
+**Refresh thresholds** (customize per repo):
+- ≥3 wiki/doc pages changed
+- ≥2 source modules changed
+- Graph ≥14 days old
+- ≥10 total files changed
+
+---
+
+## Universal Skills (Work in Any Repo)
+
+These skills come bundled in the template:
+
+| Skill | Purpose | Triggers |
+|-------|---------|----------|
+| `git-ops` | Safe git operations | commit, branch, merge, rebase, push |
+| `debug` | Evidence-first error diagnosis | error, stack trace, crash, bug, fail |
+| `refactor` | Code extraction/simplification | rename, extract, split, simplify |
+| `pr-review` | Diff analysis and review | review, PR, diff, merge request |
+| `meta` | Audit agent health, export lessons | audit skills, improve agent, retrospective |
+| `skill-creator` | Detect gaps → propose new skills | 3× pattern detected, capability gap |
+| `routing-optimizer` | Learn synonyms, improve routing | weekly optimization, routing failure |
+| `graphify-check` | Knowledge graph freshness monitor | session start (auto) |
+
+---
+
+## Integration Points
+
+### With Graphify (Knowledge Graph)
+```bash
+/graphify .                    # Build initial graph
+/graphify . --update           # Incremental refresh
+/graphify query "find god nodes"  # Query the graph
+```
+
+### With Obsidian MCP (Cross-repo Knowledge)
 ```json
 {
   "mcpServers": {
     "knowledge-vault": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/Knowledge-Vault/obsidian-mcp-server/dist/index.js"],
-      "env": { "OBSIDIAN_VAULT_PATH": "/ABSOLUTE/PATH/TO/Knowledge-Vault" }
+      "args": ["/path/to/obsidian-mcp-server/dist/index.js"],
+      "env": { "OBSIDIAN_VAULT_PATH": "/path/to/vault" }
     }
   }
 }
 ```
 
-The server exposes: `list_notes`, `read_note`, `write_note`, `search_notes`, `get_links`,
-`get_backlinks`.
+### With Claude Code Hooks
+```json
+{
+  "hooks": {
+    "PreToolUse": [{ "matcher": "Read", "command": "python scripts/graphify_refresh_manager.py --check" }]
+  }
+}
+```
 
-### 4. (Optional) Configure environment
+---
 
-Copy `.env.example` → `.env.local` and set `VAULT_ROOT` / `EXTERNAL_REPOS` if you use the
-pattern-sync skill against external source repositories.
+## Customization Examples
 
-## Reuse the agent system in your own repo
+| Domain | Subagents | Skills |
+|--------|-----------|--------|
+| **Code Migration** | converter, validator, fixer, doc-keeper | convert-module, validate-all, fix-diff |
+| **API Development** | endpoint-builder, tester, doc-gen, deployer | create-endpoint, run-tests, deploy-stage |
+| **Data Pipelines** | dag-builder, validator, monitor, optimizer | create-dag, validate-schema, optimize-cost |
+| **Documentation** | link-checker, indexer, formatter, publisher | check-links, update-index, format-all |
 
-Copy `templates/.agent-template/` into any project as `.agent/`, then adapt `index.md` routing and
-`memory/facts.md` conventions to your domain. See `templates/.agent-template/README.md`.
+---
 
-## Conventions
+## Success Metrics
 
-- **Wiki-links** (`[[Note Title]]`) for all internal references
-- **Frontmatter** on every note (`tags`, `created`, `updated`, `status`)
-- All vault operations go **through the MCP server**, never direct file I/O — so Obsidian's link graph
-  stays consistent
+After ~30 tasks, measure:
+- **Context reduction**: 60-80% vs monolithic (target)
+- **Routing accuracy**: >95% correct subagent selection
+- **Speed improvement**: 20-40% from parallel execution
+- **Failure rate**: Decreasing trend as memory accumulates
+- **Knowledge growth**: Wiki pages increase, facts.md stabilizes
 
-## Note on private content
+---
 
-`companies/` and `journal/daily/` are intentionally **gitignored** — they hold private/work content in
-the original vault and are not part of this open-source release. The shipped notes use generic example
-identifiers (`Acme Corp`, `RPT_OrderSummary`, `PROJ-123`, etc.).
+## Getting Started with the Full Vault
+
+### 1. Open in Obsidian
+
+Open this folder in [Obsidian](https://obsidian.md). Install community plugins from `.obsidian/community-plugins.json`.
+
+### 2. Build the MCP server
+
+```bash
+cd obsidian-mcp-server
+npm install
+npm run build
+```
+
+### 3. Configure `.mcp.json`
+
+Replace placeholder paths with your absolute paths.
+
+### 4. (Optional) Set up external repos
+
+Copy `.env.example` → `.env.local` and configure `VAULT_ROOT` / `EXTERNAL_REPOS`.
+
+---
+
+## Note on Private Content
+
+`companies/` and `journal/daily/` are gitignored — they hold private content in the original vault. Shipped notes use generic placeholders (`Acme Corp`, `RPT_OrderSummary`, `PROJ-123`).
 
 ## License
 

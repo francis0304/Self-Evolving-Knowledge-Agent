@@ -281,12 +281,33 @@ When documenting patterns: Universal patterns go in `knowledge/`, company-specif
 
 ---
 
+## Template System (For New Repos)
+
+The `templates/` directory contains everything needed to bootstrap the .agent system in any repo:
+
+| File | Purpose |
+|------|---------|
+| `templates/.agent-template/` | Drop-in `.agent/` system (copy to any repo) |
+| `templates/CLAUDE.md.template` | Wire the agent system into Claude Code |
+| `templates/scripts/graphify_refresh_manager.py` | Smart knowledge graph freshness monitoring |
+
+**Quick start for new repos**:
+```bash
+cp -r templates/.agent-template your-repo/.agent
+cp templates/CLAUDE.md.template your-repo/CLAUDE.md
+# Edit index.md, facts.md, and CLAUDE.md for your domain
+```
+
+See `templates/.agent-template/README.md` for the full setup guide.
+
+---
+
 ## References
 
 **Main navigation**: Index.md  
-**Agent system docs**: knowledge/architecture/Agent System Introduction.md  
+**Agent system docs**: knowledge/architecture/Agent System Architecture.md  
 **Meta-optimizer**: knowledge/architecture/Agent System Meta-Optimizer.md  
-**Self-iteration status**: knowledge/architecture/Agent System Self-Iteration - Current Status.md  
-**Complete ecosystem guide**: knowledge/architecture/Complete Ecosystem Overview.md
+**Complete ecosystem guide**: knowledge/architecture/Complete Ecosystem Overview.md  
+**Cost optimization**: knowledge/architecture/Agent System Cost Optimization v5.1.md
 
 **External repos**: See `.agent/memory/facts.md` for complete external repository paths
