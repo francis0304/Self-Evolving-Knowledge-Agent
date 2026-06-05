@@ -1,6 +1,6 @@
 # The Complete AI Ecosystem - Visual Diagrams
 
-**Companion to**: [[The Complete AI Ecosystem - Architecture]]  
+**Companion to**: [[Complete Ecosystem Overview]]  
 **Date**: 2026-06-04  
 **Format**: Mermaid diagrams (render in Obsidian with Mermaid plugin)
 
@@ -590,7 +590,7 @@ sequenceDiagram
 
 ## 🔗 Related Documents
 
-- [[The Complete AI Ecosystem - Architecture]] - Full written documentation
+- [[Complete Ecosystem Overview]] - Full written documentation
 - [[Agent System Introduction]] - .agent system explained
 - [[knowledge/tools/mcp/core/MCP Tutorial]] - MCP setup guide
 - [[Index]] - Vault navigation

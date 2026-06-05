@@ -287,6 +287,6 @@ When documenting patterns: Universal patterns go in `knowledge/`, company-specif
 **Agent system docs**: knowledge/architecture/Agent System Introduction.md  
 **Meta-optimizer**: knowledge/architecture/Agent System Meta-Optimizer.md  
 **Self-iteration status**: knowledge/architecture/Agent System Self-Iteration - Current Status.md  
-**Complete ecosystem guide**: knowledge/architecture/The Complete AI Ecosystem - Architecture.md
+**Complete ecosystem guide**: knowledge/architecture/Complete Ecosystem Overview.md
 
 **External repos**: See `.agent/memory/facts.md` for complete external repository paths
