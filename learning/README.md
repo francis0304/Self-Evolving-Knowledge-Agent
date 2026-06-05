@@ -2,6 +2,8 @@
 
 **Purpose**: Zettelkasten-style learning notes and knowledge capture
 
+The learning system is designed to capture atomic insights that can be promoted into reusable patterns and eventually hardened into project facts.
+
 ---
 
 ## Directory Structure
