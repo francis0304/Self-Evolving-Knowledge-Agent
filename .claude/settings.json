@@ -3,6 +3,7 @@
     "allow": [
       "mcp__knowledge-vault__list_notes",
       "mcp__knowledge-vault__read_note",
+      "mcp__knowledge-vault__write_note",
       "mcp__knowledge-vault__search_notes",
       "mcp__knowledge-vault__get_links",
       "mcp__knowledge-vault__get_backlinks"
