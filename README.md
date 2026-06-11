@@ -1,6 +1,6 @@
 # Knowledge Vault — Self-Optimizing `.agent` System
 
-> A reference architecture for **delegation-first, self-improving AI agent ecosystems** built on Claude Code.
+> don't scale by giving one agent more context — scale by delegation, isolation, and knowledge reuse.
 
 ## The Idea
 
